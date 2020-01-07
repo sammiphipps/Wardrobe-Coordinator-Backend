@@ -4,6 +4,7 @@ class CreateClothingItems < ActiveRecord::Migration[6.0]
       t.string :image_url
       t.string :clothing_type
       t.string :color
+      t.references :clothing_category
 
       t.timestamps
     end
