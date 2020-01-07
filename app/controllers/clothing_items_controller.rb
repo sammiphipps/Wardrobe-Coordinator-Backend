@@ -5,23 +5,23 @@ rescue_from ActiveRecord::RecordInvalid, with: :handle_record_invalid
 
     def index 
         clothing_items = ClothingItem.all
-        render json: clothing_items
+        render json: clothing_items, except: [:clothing_category_id], include: [:clothing_category => {only: [:name]}]
     end 
 
     def show 
         clothing_item = ClothingItem.find(params[:id])
-        render json: clothing_item
+        render json: clothing_item, except: [:clothing_category_id], include: [:clothing_category => {only: [:name]}]
     end 
 
     def create 
         clothing_item = ClothingItem.create(clothing_item_params)
-        render json: clothing_item
+        render json: clothing_item, except: [:clothing_category_id], include: [:clothing_category => {only: [:name]}]
     end 
 
     def update 
         clothing_item = ClothingItem.find(params[:id])
         clothing_item.update(clothing_item_params)
-        render json: clothing_item
+        render json: clothing_item, except: [:clothing_category_id], include: [:clothing_category => {only: [:name]}]
     end 
 
     def destroy
@@ -33,7 +33,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :handle_record_invalid
     private 
 
     def clothing_item_params
-        params.require(:clothing_item).permit(:image_url, :clothing_type, :color)
+        params.require(:clothing_item).permit(:image_url, :clothing_type, :color, :clothing_category_id)
     end 
 
     def handle_record_not_found(exception)

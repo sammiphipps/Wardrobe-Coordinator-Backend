@@ -10,17 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_06_205358) do
+ActiveRecord::Schema.define(version: 2020_01_06_235232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "clothing_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "clothing_items", force: :cascade do |t|
     t.string "image_url"
     t.string "clothing_type"
     t.string "color"
+    t.bigint "clothing_category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["clothing_category_id"], name: "index_clothing_items_on_clothing_category_id"
   end
 
 end
