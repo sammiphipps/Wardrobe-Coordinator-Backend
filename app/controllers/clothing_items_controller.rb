@@ -35,7 +35,7 @@ before_action :authenticate, only: [:create, :update, :delete]
     private 
 
     def clothing_item_params
-        params.require(:clothing_item).permit(:image_url, :clothing_type, :color, :clothing_category_id)
+        params.require(:clothing_item).permit(:image_url, :clothing_type, :color, :clothing_category_id, :user_id)
     end 
 
     def handle_record_not_found(exception)
