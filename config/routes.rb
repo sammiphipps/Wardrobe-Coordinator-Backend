@@ -3,4 +3,5 @@ Rails.application.routes.draw do
 
   resources :clothing_items, except: [:new, :edit]
   resources :clothing_categories, only: [:index, :show]
+  resources :users, only: [:create]
 end 
