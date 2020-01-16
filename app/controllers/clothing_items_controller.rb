@@ -3,7 +3,7 @@ class ClothingItemsController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
 rescue_from ActiveRecord::RecordInvalid, with: :handle_record_invalid
 
-before_action :authenticate, only: [:create, :update, :delete]
+before_action :authenticate, only: [:create, :update, :destroy]
 
     def index 
         clothing_items = ClothingItem.all
@@ -26,13 +26,13 @@ before_action :authenticate, only: [:create, :update, :delete]
     end 
 
     def create 
-        clothing_item = ClothingItem.create(clothing_item_params)
+        clothing_item = ClothingItem.create(clothing_item_params.merge(:user_id => @user.id))
         render json: clothing_item, except: [:clothing_category_id], include: [:clothing_category => {only: [:name]}]
     end 
 
     def update 
         clothing_item = ClothingItem.find(params[:id])
-        clothing_item.update(clothing_item_params)
+        clothing_item.update(clothing_item_params.merge(:user_id => @user.id))
         render json: clothing_item, except: [:clothing_category_id], include: [:clothing_category => {only: [:name]}]
     end 
 
@@ -45,7 +45,7 @@ before_action :authenticate, only: [:create, :update, :delete]
     private 
 
     def clothing_item_params
-        params.require(:clothing_item).permit(:image_url, :clothing_type, :color, :clothing_category_id, :user_id)
+        params.require(:clothing_item).permit(:image_url, :clothing_type, :color, :clothing_category_id)
     end 
 
     def handle_record_not_found(exception)
