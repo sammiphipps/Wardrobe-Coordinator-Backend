@@ -1,4 +1,7 @@
 class AuthenticationController < ApplicationController
+
+    before_action :authenticate, only: [:token_check]
+
     def login 
         user = User.find_by(username: params[:username])
         if (!user)
@@ -15,5 +18,11 @@ class AuthenticationController < ApplicationController
                 render json: {error: "Unauthorized"}, status: :unauthorized
             end 
         end     
+    end 
+
+    def token_check
+        if (@user)
+            render json: {username: @user.username}
+        end
     end 
 end
