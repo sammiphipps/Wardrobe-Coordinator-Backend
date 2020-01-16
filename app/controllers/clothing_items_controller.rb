@@ -17,8 +17,12 @@ before_action :authenticate, only: [:create, :update, :delete]
 
     def index_by_user
         user = User.find_by(username: params[:username])
-        clothing_items = ClothingItem.where(user_id: user.id)
-        render json: clothing_items, except: [:clothing_category_id], include: [:clothing_category => {only: [:name]}]
+        if(user)
+            clothing_items = ClothingItem.where(user_id: user.id)
+            render json: clothing_items, except: [:clothing_category_id], include: [:clothing_category => {only: [:name]}]
+        else 
+            render json: {error: "Username not present in database."}
+        end 
     end 
 
     def create 
