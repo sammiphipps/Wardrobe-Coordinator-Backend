@@ -15,7 +15,7 @@ before_action :authenticate, only: [:create, :update, :delete]
         render json: clothing_item, except: [:clothing_category_id], include: [:clothing_category => {only: [:name]}]
     end 
 
-    def index_by_users
+    def index_by_user
         user = User.find_by(username: params[:username])
         clothing_items = ClothingItem.where(user_id: user.id)
         render json: clothing_items, except: [:clothing_category_id], include: [:clothing_category => {only: [:name]}]
