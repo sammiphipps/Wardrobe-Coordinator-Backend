@@ -3,7 +3,7 @@ class ClothingItemsController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
 rescue_from ActiveRecord::RecordInvalid, with: :handle_record_invalid
 
-before_action :authenticate, only: [:create, :update, :destroy]
+before_action :authenticate, only: [:index_by_user, :create, :update, :destroy]
 
     def index 
         clothing_items = ClothingItem.all
@@ -16,7 +16,7 @@ before_action :authenticate, only: [:create, :update, :destroy]
     end 
 
     def index_by_user
-        user = User.find_by(username: params[:username])
+        user = User.find_by(username: @user.username)
         if(user)
             clothing_items = ClothingItem.where(user_id: user.id)
             render json: clothing_items, except: [:clothing_category_id], include: [:clothing_category => {only: [:name]}]
