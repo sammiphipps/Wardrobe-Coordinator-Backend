@@ -3,7 +3,7 @@ class ClothingItemsController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
 rescue_from ActiveRecord::RecordInvalid, with: :handle_record_invalid
 
-before_action :authenticate, only: [:create, :update, :delete]
+before_action :authenticate, only: [:create, :update, :destroy]
 
     def index 
         clothing_items = ClothingItem.all
