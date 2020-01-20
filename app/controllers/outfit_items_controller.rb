@@ -7,23 +7,23 @@ class OutfitItemsController < ApplicationController
 
     def index 
         outfit_items = OutfitItem.all
-        render json: outfit_items
+        render json: outfit_items, include: [:outfit, :clothing_item], except: [:outfit_id, :clothing_item_id]
     end 
 
     def show 
         outfit_item = OutfitItem.find(params[:id])
-        render json: outfit_item
+        render json: outfit_item, include: [:outfit, :clothing_item], except: [:outfit_id, :clothing_item_id]
     end 
 
     def create 
         outfit_item = OutfitItem.create(outfit_item_params)
-        render json: outfit_item 
+        render json: outfit_item, include: [:outfit, :clothing_item], except: [:outfit_id, :clothing_item_id]
     end 
 
     def update 
         outfit_item = OutfitItem.find(params[:id])
         outfit_item.update(outfit_item_params)
-        render json: outfit_item
+        render json: outfit_item, include: [:outfit, :clothing_item], except: [:outfit_id, :clothing_item_id]
     end 
 
     def destroy 

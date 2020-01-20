@@ -3,21 +3,31 @@ class OutfitsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
     rescue_from ActiveRecord::RecordInvalid, with: :handle_record_invalid
 
-    before_action :authenticate, only: [:create, :destroy]
+    before_action :authenticate, only: [:index_by_user, :create, :destroy]
 
     def index 
         outfits = Outfit.all
-        render json: outfits
+        render json: outfits, include: [:clothing_items => {except: [:user_id]}]
+    end 
+
+    def index_by_user
+        user = User.find_by(username: @user.username)
+        if (user)
+            outfits = Outfit.where(user_id: user.id)
+            render json: outfits, include: [:clothing_items => {except: [:user_id]}]
+        else 
+            render json: {error: "Username not present in database."}
+        end 
     end 
 
     def show 
         outfit = Outfit.find(params[:id])
-        render json: outfit
+        render json: outfit, include: [:clothing_items => {except: [:user_id]}]
     end 
 
     def create
         outfit = Outfit.create(user_id: @user.id)
-        render json: outfit
+        render json: outfit, include: [:clothing_items => {except: [:user_id]}]
     end 
 
     def destroy 
