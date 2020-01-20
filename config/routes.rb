@@ -3,9 +3,11 @@ Rails.application.routes.draw do
 
   post "login", to: "authentication#login"
   get "/user_clothing_items", to: "clothing_items#index_by_user"
+  get "/user_outfits", to: "outfits#index_by_user"
 
   resources :clothing_items, except: [:new, :edit]
   resources :clothing_categories, only: [:index, :show]
   resources :users, only: [:create]
-
+  resources :outfits, except: [:update, :new, :edit]
+  resources :outfit_items, except: [:new, :edit]
 end 
