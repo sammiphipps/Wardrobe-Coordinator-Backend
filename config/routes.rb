@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   resources :clothing_items, except: [:new, :edit]
   resources :clothing_categories, only: [:index, :show]
   resources :users, only: [:create]
-
+  resources :outfits, except: [:update, :new, :edit]
+  resources :outfit_items, except: [:new, :edit]
 end 
