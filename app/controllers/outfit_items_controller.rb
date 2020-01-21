@@ -17,13 +17,13 @@ class OutfitItemsController < ApplicationController
 
     def create 
         outfit_item = OutfitItem.create(outfit_item_params)
-        render json: outfit_item, include: [:outfit => {except: [:created_at, :updated_at]}, :clothing_item => {except: [:created_at, :updated_at]}], except: [:outfit_id, :clothing_item_id]
+        redirect_to :controller => "outfits", :action => "show", :id => outfit_item.outfit.id
     end 
 
     def update 
         outfit_item = OutfitItem.find(params[:id])
         outfit_item.update(outfit_item_params)
-        render json: outfit_item, include: [:outfit => {except: [:created_at, :updated_at]}, :clothing_item => {except: [:created_at, :updated_at]}], except: [:outfit_id, :clothing_item_id]
+        redirect_to :controller => "outfits", :action => "show", :id => outfit_item.outfit.id
     end 
 
     def destroy 
