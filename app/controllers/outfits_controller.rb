@@ -7,14 +7,14 @@ class OutfitsController < ApplicationController
 
     def index 
         outfits = Outfit.all
-        render json: outfits, include: [:clothing_items => {except: [:user_id, :created_at, :updated_at]}]
+        render json: outfits, include: [:clothing_items => {include: [:clothing_category => {only: [:name]}] , except: [:user_id, :created_at, :updated_at, :clothing_category_id]}]
     end 
 
     def index_by_user
         user = User.find_by(username: @user.username)
         if (user)
             outfits = Outfit.where(user_id: user.id)
-            render json: outfits, include: [:clothing_items => {except: [:user_id]}]
+            render json: outfits, include: [:clothing_items => {include: [:clothing_category => {only: [:name]}] , except: [:user_id, :created_at, :updated_at, :clothing_category_id]}]
         else 
             render json: {error: "Username not present in database."}
         end 
@@ -22,12 +22,12 @@ class OutfitsController < ApplicationController
 
     def show 
         outfit = Outfit.find(params[:id])
-        render json: outfit, include: [:clothing_items => {except: [:user_id]}]
+        render json: outfit, include: [:clothing_items => {include: [:clothing_category => {only: [:name]}] , except: [:user_id, :created_at, :updated_at, :clothing_category_id]}]
     end 
 
     def create
         outfit = Outfit.create(user_id: @user.id)
-        render json: outfit, include: [:clothing_items => {except: [:user_id]}]
+        render json: outfit, include: [:clothing_items => {include: [:clothing_category => {only: [:name]}] , except: [:user_id, :created_at, :updated_at, :clothing_category_id]}]
     end 
 
     def destroy 
