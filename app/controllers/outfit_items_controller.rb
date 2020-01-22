@@ -3,7 +3,7 @@ class OutfitItemsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
     rescue_from ActiveRecord::RecordInvalid, with: :handle_record_invalid
 
-    before_action :authenticate, only: [:create, :update, :destroy]
+    before_action :authenticate, only: [:create, :create_with_multiple_items, :update, :destroy]
 
     def index 
         outfit_items = OutfitItem.all
@@ -18,6 +18,18 @@ class OutfitItemsController < ApplicationController
     def create 
         outfit_item = OutfitItem.create(outfit_item_params)
         redirect_to :controller => "outfits", :action => "show", :id => outfit_item.outfit.id
+    end 
+
+    def create_with_multiple_items
+        outfit_id = params[:outfit_item][:outfit_id]
+        items = params[:outfit_item][:items]
+        outfitItemsCreated = items.map do |item|
+            OutfitItem.create(
+                outfit_id: outfit_id,
+                clothing_item_id: item
+            )
+        end 
+        redirect_to :controller => "outfits", :action => "show", :id => outfit_id
     end 
 
     def update 
