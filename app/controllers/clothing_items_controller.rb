@@ -38,6 +38,12 @@ before_action :authenticate, only: [:index_by_user, :create, :update, :destroy]
 
     def destroy
         clothing_item = ClothingItem.find(params[:id])
+        if(clothing_item.outfits.count > 0)
+            clothing_item.outfits.map do |outfit|
+                associated_outfit = Outfit.find(outfit.id)
+                associated_outfit.destroy
+            end 
+        end 
         clothing_item.destroy
         render json: {status: 204, message: "One of your clothing items has been destroyed."}
     end 
