@@ -7,19 +7,19 @@ before_action :authenticate, only: [:index_by_user, :create, :update, :destroy]
 
     def index 
         clothing_items = ClothingItem.all
-        render json: clothing_items, except: [:clothing_category_id], include: [:clothing_category => {only: [:name]}]
+        render json: clothing_items, except: [:clothing_category_id], include: [:clothing_category => {only: [:id, :name]}]
     end 
 
     def show 
         clothing_item = ClothingItem.find(params[:id])
-        render json: clothing_item, except: [:clothing_category_id], include: [:clothing_category => {only: [:name]}]
+        render json: clothing_item, except: [:clothing_category_id], include: [:clothing_category => {only: [:id, :name]}]
     end 
 
     def index_by_user
         user = User.find_by(username: @user.username)
         if(user)
             clothing_items = ClothingItem.where(user_id: user.id)
-            render json: clothing_items, except: [:clothing_category_id], include: [:clothing_category => {only: [:name]}]
+            render json: clothing_items, except: [:clothing_category_id], include: [:clothing_category => {only: [:id, :name]}]
         else 
             render json: {error: "Username not present in database."}
         end 
@@ -27,13 +27,13 @@ before_action :authenticate, only: [:index_by_user, :create, :update, :destroy]
 
     def create 
         clothing_item = ClothingItem.create(clothing_item_params.merge(:user_id => @user.id))
-        render json: clothing_item, except: [:clothing_category_id], include: [:clothing_category => {only: [:name]}]
+        render json: clothing_item, except: [:clothing_category_id], include: [:clothing_category => {only: [:id, :name]}]
     end 
 
     def update 
         clothing_item = ClothingItem.find(params[:id])
         clothing_item.update(clothing_item_params.merge(:user_id => @user.id))
-        render json: clothing_item, except: [:clothing_category_id], include: [:clothing_category => {only: [:name]}]
+        render json: clothing_item, except: [:clothing_category_id], include: [:clothing_category => {only: [:id, :name]}]
     end 
 
     def destroy
