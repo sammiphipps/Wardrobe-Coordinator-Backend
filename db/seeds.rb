@@ -5,8 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+OutfitItem.destroy_all
+Outfit.destroy_all
 ClothingItem.destroy_all
 ClothingCategory.destroy_all
+User.destroy_all
 
 top = ClothingCategory.create(
     name: "top"
@@ -16,38 +19,68 @@ bottom = ClothingCategory.create(
     name: "bottom"
 )
 
+sammiphipps = User.create(
+    username: "sammiphipps",
+    password: "123"
+)
 
-ClothingItem.create(
-    image_url: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTR7d0JxK06CfziiNWqi3k4ufVnvFUud6As6StlY87UncOr7j9gpOb-p1xy2IA3Ql_EJJ16JGA5Mz7MxcCHfMjjXumY3POmd8NP7bxZwIBcev1WM41uSRYyuw&usqp=CAE",
-    clothing_type: "blouse",
-    color: "green",
-    clothing_category: top
+test = User.create(
+    username: "test",
+    password: "test"
 )
 
 ClothingItem.create(
-    image_url: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRyPaRn0wvE9yaVsNdSi99KZZ233umyb8a4mpzzxrI8Eftdw1yvEkCmakPTHnsrM_B2v05JT5YVD8xAqhxJoLqRKXKOSRqAUYLYtXqnVjgCXXiSR2PbI4n0dw&usqp=CAE",
+    image_url: "https://i.pinimg.com/originals/01/82/a3/0182a3e739a58f7f217a34eb7341d9e3.png",
+    clothing_type: "t-shirt",
+    color: "black",
+    clothing_category: top,
+    user: sammiphipps
+)
+
+ClothingItem.create(
+    image_url: "https://i.ya-webdesign.com/images/women-dress-png-6.png",
+    clothing_type: "casual dress",
+    color: "red polka dots",
+    clothing_category: top,
+    user: sammiphipps
+)
+
+ClothingItem.create(
+    image_url: "https://i.pinimg.com/originals/da/e8/96/dae896db0346af3c4f5a2ef6f50e93ec.png",
+    clothing_type: "t-shirt",
+    color: "black",
+    clothing_category: top,
+    user:sammiphipps
+)
+
+ClothingItem.create(
+    image_url: "https://gloimg.chinabrands.com/cb/pdm-product-pic/Clothing/2019/02/13/grid-img/1550021232388477261.png",
+    clothing_type: "blouse",
+    color: "black and white",
+    clothing_category: top,
+    user:sammiphipps
+)
+
+ClothingItem.create(
+    image_url: "https://cdn.shopify.com/s/files/1/0064/8760/5321/products/C193SK02_zm_ee8a044d-c4d8-4b91-b447-0c57251bb088.png?v=1569940782",
+    clothing_type: "skirt",
+    color: "black",
+    clothing_category: bottom,
+    user: sammiphipps
+)
+
+ClothingItem.create(
+    image_url: "https://craaazyfashion.files.wordpress.com/2015/06/anf_86818_01_prod1.png",
+    clothing_type: "jean shorts",
+    color: "blue", 
+    clothing_category: bottom,
+    user: sammiphipps
+)
+
+ClothingItem.create(
+    image_url: "https://i.pinimg.com/originals/1a/65/5f/1a655f78d186fe1cdfcc331088c262d5.png",
     clothing_type: "jeans",
     color: "dark blue",
-    clothing_category: bottom
-)
-
-ClothingItem.create(
-    image_url: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTv98SHk6_IXnnBmXVfpgkkjPiBcrbIsR0YWLpipY8sH9e1miSUx1K4ruD0DLCO7KOljQGR9nro0-Jsdz7eZXm8aZMz_T67r2Xy903Gchc&usqp=CAE",
-    clothing_type: "casual dress",
-    color: "teal",
-    clothing_category: top
-)
-
-ClothingItem.create(
-    image_url: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRoPGlz2pS3wAdXcW3YhgsakGGRj9EoFvsQ-p-6jo2Gy7S5e-C3kcEAN8u4iJA6h9OauYyx2lwGJ8UtUBghjpslEJ3vGOA_z-JXuLnX7MvixX3Mn_BVzcT2FQ&usqp=CAE",
-    clothing_type: "sweatpants",
-    color: "black",
-    clothing_category: bottom
-)
-
-ClothingItem.create(
-    image_url: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQAOrvfHBdElD7l6DeSie_YWyh0xQtcxk9JVebnWtkU_6uqm_YjO4a_zdXjSTmGBg4YdAfYQ_cY6bjTZwmfWZAHDCGKqTmtOPPfmPKgqm2iUT9bNmEjsGU2UA&usqp=CAE",
-    clothing_type: "long sleeve t-shirt",
-    color: "orange",
-    clothing_category: top
+    clothing_category: bottom,
+    user: sammiphipps
 )
